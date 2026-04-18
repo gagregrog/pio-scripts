@@ -3,7 +3,7 @@ Pre-build script: reads tags.csv and generates include/TagMap.h.
 
 tags.csv format (gitignored — do not commit):
     # comments and blank lines are ignored
-    # ID is assigned by line position, starting at 1
+    # ID is assigned by line position, starting at 0
     DE:AD:BE:EF:12:34:56
     AB:CD:EF:01:23:45
 
@@ -23,7 +23,7 @@ def gen_tagmap(project_dir):
     entries = []
     if os.path.exists(tags_path):
         with open(tags_path) as f:
-            tag_id = 1
+            tag_id = 0
             for line in f:
                 line = line.strip()
                 if not line or line.startswith("#"):
