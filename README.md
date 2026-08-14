@@ -71,6 +71,32 @@ If either key is absent it is omitted from the upload command (espota will promp
 
 ---
 
+## resolve_mdns.sh
+
+Resolves a `.local` mDNS/Bonjour hostname to an IPv4 address and prints it to stdout. Useful for finding a device's current IP when `espota` can't reach it by hostname directly.
+
+**Usage:**
+```bash
+scripts/resolve_mdns.sh [hostname[.local]]
+```
+
+Hostname is taken from the first argument if given, else `OTA_HOSTNAME` in `.env`, else an interactive prompt. Tries `dscacheutil` (macOS), then `avahi-resolve-host-name` (Linux), then falls back to parsing `ping`.
+
+---
+
+## watch_usb_devices.sh
+
+Polls `/dev/cu.*` and prints a timestamped `+`/`-` line whenever a device appears or disappears, so you can plug a board in and immediately see which port it landed on.
+
+**Usage:**
+```bash
+scripts/watch_usb_devices.sh [interval_seconds]
+```
+
+Defaults to a 1s poll interval. Ctrl-C to stop.
+
+---
+
 ## compress_html.py
 
 Gzip-compresses `src/web/web_ui.html` and writes it as a `uint8_t` byte array to `src/web/web_ui_html.h`. Include the generated header in your WebUI module and serve `HTML_GZ` (length `HTML_GZ_LEN`) with `Content-Encoding: gzip`.
